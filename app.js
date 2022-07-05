@@ -1,14 +1,43 @@
-//TODO importamos EXPRESS
-const express = require("express")
+//todo -------------- IMPORTAMOS LIBRERIAS --------------
+const express   = require("express")// importamos EXPRESS nos permite crear el servidor
+const hbs       = require("hbs")// importamos HBS
+require('dotenv/config'); // importamos DOTENV
+const cookieParser = require("cookie-parser");
+const morgan = require("morgan")
+//const passport  = require("passport")
+// const session = require("express-session")
+
+
+
+
+
+
+
+//todo -------------- INIT EXPRESS --------------
 const app = express()
-//TODO importamos DOTENV
-require('dotenv/config');
-//TODO importamos HBS
-const hbs =require("hbs")
+require("./db")// conectamos a BD
+// require("./passport/local-auth")
 
-//Public folder
+
+//todo -------------- MIDDLEWARES --------------
+app.use(morgan("dev"))
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));// nos permite aceder a los datrs del formulario
+app.use(cookieParser());
+// app.use(session ({
+//     secret: process.env.SESSION_SECRET,
+//     resave:true,
+//     saveUninitialized:false
+
+// }))
+// app.use(passport.initialize()) // inicializamos passport
+// app.use(passport.session()) // lo almacenamos en sesiones
+
+
+
+//todo -------------- SETUP --------------
+//Public folder: configuramos que public sea estatica
 app.use(express.static("public"))
-
 // configuramos HBS
 app.set("views",__dirname+"/views")
 //hbs tempaltes
@@ -20,9 +49,11 @@ hbs.registerPartials(__dirname+"/views/partials")
 
 
 
-// ----------------- RUTAS -----------------
- const index = require ("./routes/index")
- app.use("/",index)
+
+//todo -------------- RUTAS --------------
+ app.use("/",require ("./routes/index"))
+ app.use("/",require ("./routes/auth"))
+ app.use("/user",require ("./routes/user"))
 
 
 
@@ -31,7 +62,7 @@ hbs.registerPartials(__dirname+"/views/partials")
 
 
 
-//TODO levantamos servidor.
+//todo -------------- LEVANTAMOS SERVIDOR --------------
 app.listen(process.env.PORT,()=>{
     console.log(`ENTRANDO A :  http://localhost:${process.env.PORT}`)
 })
