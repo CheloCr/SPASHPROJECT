@@ -5,6 +5,11 @@ const app = express()
 require('dotenv/config');
 //TODO importamos HBS
 const hbs =require("hbs")
+require("./db")
+//TODO importamos body-parser
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));// nos permite aceder a los datrs del formulario
+// app.use(cookieParser());
 
 //Public folder
 app.use(express.static("public"))

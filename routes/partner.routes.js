@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Partner = require("../models/Partner.model");
-const bcriptjs = require("bcriptjs");
+const bcryptjs = require("bcryptjs");
+
 /* 
 create
 signup : get, post{redirect}
@@ -9,16 +10,17 @@ signup : get, post{redirect}
 */
 // TODO --------------------SIGNUP--------------------
 router.get("/signup", (req, res, next) => {
-    res.render("signup");
+    res.render("partner/signup");
 })
 router.post("/signup", (req, res, next) => {
-    const { role, ...restPartner } = req.body;
-    const salt = bcriptjs.genSaltSync(10);
-    const newPassword = bcriptjs.hashSync(restPartner.password, salt);
+    const {role, ...restPartner } = req.body;
+    const salt = bcryptjs.genSaltSync(10);
+    const newPassword = bcryptjs.hashSync(restPartner.password, salt);
 
     Partner.create({...restPartner, password: newPassword})
         .then(partner => {
-            res.render("partner/profile", { partner });
+        
+            res.render("partner/profile",  partner );
             console.log("partner created", partner);
         })
         .catch(err => next(err))
@@ -28,7 +30,7 @@ router.post("/signup", (req, res, next) => {
 // TODO --------------------LOGIN--------------------
 
 router.get("/login", (req,res,next)=>{
-	res.render("auth/login")
+	res.render("partner/login")
 })
 
 
@@ -47,8 +49,8 @@ router.post("/login",(req,res,next)=>{
     //     return res.render("auth/login", {errorMessage})
     // }
 
-	User.findOne({email})
-	.then(user => {
+	Partner.findOne({email})
+	.then(partner => {
 
 		// if(!user){
         //     const errorMessage = ["El correo o contraseña es incorrecto"]
@@ -62,17 +64,28 @@ router.post("/login",(req,res,next)=>{
 
         //si todo lo anterior es correcto se manda a perfil
 
-		console.log(user)
+		console.log(partner)
 		
-        res.redirect(`/user/profile/${user._id}`)
+        res.redirect(`/partner/profile/${partner._id}`)
 
 		
 	})
 	.catch(error=>{
         const errorMessage = ["Intentalo mas tarde"]
-        return res.render("auth/login",{errorMessage,isSignUp:true})
+        return res.render("partner/login",{errorMessage,isSignUp:true})
     })
 
+})
+// TODO --------------------PROFILE--------------------
+
+router.get("/profile/:id",(req,res,next)=>{
+    const {id} = req.params;
+    Partner.findById(id)
+    .then(partner => {
+        res.render("partner/profile", partner)
+    }).catch(error=>{
+        next(error)
+    })
 })
 
 // TODO --------------------READ--------------------
@@ -80,16 +93,7 @@ router.post("/login",(req,res,next)=>{
 router.get("/partners", (req, res, next) => {
     res.render("partner/partners-list");
 })
-// TODO --------------------PROFILE--------------------
 
-router.get("/:id",(req,res,next)=>{
-    Partner.findById(id)
-    .then(partner => {
-        res.render("partner/profile",{partner})
-    }).catch(error=>{
-        next(error)
-    })
-})
 
 
 // TODO --------------------LOGOUT--------------------
@@ -100,16 +104,24 @@ router.get("/:id",(req,res,next)=>{
 router.get("/edit/:id",(req,res,next)=>{
     const {id} = req.params
     Partner.findById(id)
-    .then(partner => res.render("partner/edit-partner",{partner}))
+    .then(partnerEdited => res.render("partner/edit-partner",{partner:partnerEdited}))
     .catch(err => next(err))
 })
 router.post("/edit/:id",(req,res,next)=>{
     const {id} = req.params
-    const {role, ...restPartner} = req.body
-    Partner.findByIdAndUpdate(id,restPartner, {new:true})
-    .then(partner => res.redirect(`/profile/${partner._id}`))
-    .catch(err => next(err))
+    const {role, ...partnerEdited} = req.body
+    Partner.findByIdAndUpdate(id, partnerEdited, {Edit: true})
+    .then(partnerEdited => res.redirect("partner/profile/:id",{partner:partnerEdited}))
+   
+    // .then(partnerEdited => res.render("partner/profile", partnerEdited))
+    .catch(err => {
+        console.log("Error in updating partner",err)
+        next(err)
+    })
+
 })
+
+
 // TODO --------------------DELETE--------------------
 router.get("/delete/:id",(req,res,next)=>{
     const {id} = req.params

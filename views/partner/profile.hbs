@@ -7,7 +7,7 @@
 <p> hola</p>
    
 <div class="card" style="width: 18rem;">
-  <img src=" {{user_photo}} " class="card-img-top" alt="...">
+  <img src="{{this.partner_photo}}" class="card-img-top" alt="...">
 
   <div class="card-body">
     <p class="card-text">{{email}}</p>
@@ -15,4 +15,5 @@
     <a href="/users/private"><button type="submit" class="btn btn-warning">Go private</button></a>
 
   </div>
+  <a href="/partner/edit/{{id}}">Editar Perfil</a>
 </div>
