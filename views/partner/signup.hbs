@@ -1,0 +1,17 @@
+<h1>Perfil del Socio</h1>
+<form action="/update/{{id}}" method="post">
+    <label for="photo">Cambiar foto</label>
+    <input type="file" name="partner_photo" id="photo">
+    <label for="name">Socio</label>
+    <input type="text" name="name" value="{{name}}" placeholder="{{name}}">name</input>
+    <label for="email">Email</label>
+    <input type="email" name="email" value="{{email}}" placeholder="{{email}}">email</input>
+    <label for="phone_number">Teléfono</label>
+    <input type="number" name="phone_number" value="{{phone_number}}" placeholder="{{phone_number}}">phone_number</input>
+    <label for="address">Dirección</label>
+    <input type="text" name="address" value="{{address}}" placeholder="{{address}}">address</input>
+    
+    <label for="password">Contraseña</label>
+    <input type="password" name="password" placeholder="{{password}}">Password</input>
+    <button type="submit">Update user</button>
+</form>

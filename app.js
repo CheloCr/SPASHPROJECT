@@ -22,6 +22,8 @@ hbs.registerPartials(__dirname+"/views/partials")
 
 // ----------------- RUTAS -----------------
  const index = require ("./routes/index")
+ const partnerRoutes = require("./routes/partner.routes")
+app.use("/partner", partnerRoutes)
  app.use("/",index)
 
 
