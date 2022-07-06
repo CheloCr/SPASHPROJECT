@@ -7,19 +7,19 @@ const bcryptjs = require("bcryptjs")
 
 //1.- Creamos un usuario
 // renderizamos formulario SIGNUP (signup.hbs)
-router.get("/register",(req,res,next)=>{
+router.get("/auth/signup",(req,res,next)=>{
     res.render("auth/signup")
 })
 
 // Permite crear un registro y mandar los datos del FORM a la BD
-router.post("/register", (req,res,next)=>{
+router.post("/auth/signup", (req,res,next)=>{
 	const {role, ...restUser} = req.body
 	const salt = bcryptjs.genSaltSync(10)
 	const passHashed = bcryptjs.hashSync(restUser.password,salt)
 
 	User.create({...restUser, password:passHashed})
 	.then(newUser => {
-		res.redirect(`/user/profile/${newUser.id}`)
+		res.render("user/profile", newUser)
 		console.log(newUser)
 	})
 	.catch(err => next(err))
@@ -66,8 +66,8 @@ router.post("/login",(req,res,next)=>{
         //si todo lo anterior es correcto se manda a perfil
 
 		console.log(user)
-		res.render("user/profile",user)
-        // res.redirect(`/user/profile/${user._id}`)
+		
+        res.redirect(`/user/profile/${user._id}`)
 
 		
 	})
