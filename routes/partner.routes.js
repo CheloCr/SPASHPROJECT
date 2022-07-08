@@ -95,7 +95,6 @@ router.get("/partners", (req, res, next) => {
 })
 
 
-
 // TODO --------------------LOGOUT--------------------
 
 
@@ -111,9 +110,7 @@ router.post("/edit/:id",(req,res,next)=>{
     const {id} = req.params
     const {role, ...partnerEdited} = req.body
     Partner.findByIdAndUpdate(id, partnerEdited, {Edit: true})
-    .then(partnerEdited => res.redirect("partner/profile/:id",{partner:partnerEdited}))
-   
-    // .then(partnerEdited => res.render("partner/profile", partnerEdited))
+    .then(partnerEdited => res.redirect(`/partner/profile/${id}`))
     .catch(err => {
         console.log("Error in updating partner",err)
         next(err)
