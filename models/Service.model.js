@@ -9,7 +9,7 @@ const serviceSchema = new Schema({
     },
   name:String,
   service_type: {
-        enum: ["Lavanderia","Tontoreria","planchaduria"],
+        enum: ["Lavanderia","Tintoreria","Planchaduria"],
         type: String,
         default: "Lavanderia"
      },
@@ -18,9 +18,7 @@ const serviceSchema = new Schema({
         type: [{
             size:{
                 type: String,
-                enum:["CH","M","G","XL"],
-                default:"M"
-            
+                enum:["3kg","5kg","7kg","10kg"],
             },
             price:{
                 type: Number,
@@ -39,3 +37,13 @@ const serviceSchema = new Schema({
 const Service = model("Service", serviceSchema);
 
 module.exports = Service;
+
+
+
+product:[{
+    img:String, 
+    title:String,
+    title2:String,
+    price:Number,
+    description:String,
+}]

@@ -24,7 +24,12 @@ const userSchema = new Schema({
     },
     email:{
         type:String,
-        require:true
+        require:[true,"Email es requerido"],// por si el camio se encuentra vacio
+        unique:true,// unico en la base de datos 
+        match: [/^\S+@\S+\.\S+$/, "Por favor, ingresa un email válido"],
+        lowercase:true, // email solo e minusculas
+        trim: true // sin espacios vacios
+
     },
     // address:{
     //     type:String,
@@ -34,6 +39,11 @@ const userSchema = new Schema({
     password: {
         type:String,
         require:true
+    },
+    role:{
+        type:String,
+        enum:["User","Partner"]
+
     }
 });
 

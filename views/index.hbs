@@ -6,55 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    {{!-- <nav> --}}
-      <div class="row">
-        <div class="col-3 nav justify-content-center" id="logo">
-          <img src="/images/logo.png" alt="" class="logo" />
-        </div>
-        <div class="col-5" id="nav_center">
-          <ul class="nav nav-tabs justify-content-center">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
-            </li>
-          </ul>
-        </div>
-        <div class="btn_box col-4" id="auth_bar">
-          <ul class="nav justify-content-end">
-            <li>
-              <button type="button" class="btn"><a href="/auth/signup">Signup</a></button>
-            </li>
-            <li>
-              <button type="button" class="btn"><a href="/login">Login</a></button>
-            </li>
-          </ul>
-        </div>
-      </div>
 
-    </nav>
-    <hr />
-    {{! Navbar end}}
+
+<body>
+
+<div class="mainContainer">
+
+  {{! --------------- Seccion 1 --------------- }}
     <main>
-      <div id="banner" class="row col-12">
+      <div id="banner" >
         <div id="left">
           <h1>Lavar la ropa desde casa nunca había sido tan divertido!</h1>
-          <p>
-            Explora las mejores opciones para el cuidado de tu ropa y el hogar
-            sin salir de casa. Contamos con una gran variedad de opciones para
-            ti.
-          </p>
         </div>
         <div id="right">
-          <img src="../public/images/banner.png" alt="" />
+          <img class="banner" src="https://s03.s3c.es/imag/_v0/770x420/7/c/3/600x400_lavadura-factura-de-la-luz-madrugada-1.jpg" alt="" />
         </div>
       </div>
-      {{! Seccion 1 fin }}
+      {{! --------------- Seccion 1 fin --------------- }}
 
       <div id="user_guide" class="row">
         <section class="timeline">
@@ -148,9 +116,7 @@
                                <div class="card" style="width: 18rem;">
                                     <img class="card-img-top" src="https://th.bing.com/th/id/R.0d8c55e3346ed4aa86f791eaa008bf60?rik=LiEC%2bLw4rHAHlA&pid=ImgRaw&r=0" width="fit-content" height="300px" alt="Card image cap">
                                     <div class="card-body">
-                                        <p class="card-text">I had a great experience using Splash Clothes were clean and neat. I highly recommend. Actually I have referred them to friends who continue to use the services!!!
-
-</p>
+                                        <p class="card-text">I had a great experience using Splash Clothes were clean and neat. I highly recommend. Actually I have referred them to friends who continue to use the services!!!</p>
                                     </div>
                                 </div>
                             </div>
@@ -193,9 +159,7 @@
              </div>
       </div>
 
-    </main>
-
-    <footer id="footer" class="row">
+      <footer id="footer" class="row">
         <div id="foot-content">
             <div id="icons">
                 <img src="/images/facebookrounded.png" width="50px" height="50px" alt="Facebook">
@@ -207,5 +171,11 @@
             </div>
         </div>
     </footer>
+
+    </main>
+
+    
+
+  </div>      
 </body>
 </html>

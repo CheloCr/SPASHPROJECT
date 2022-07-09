@@ -1,33 +1,53 @@
+
+{{!-- 
+ Celia12
+ test2@gmail.com
+ Perritos2324
+
+ Carolina2
+ xchellong18@gmail.com
+ Carolina2123
+
+
+ --}}
+
+
 {{!-- action es la ruta a la que se va --}}
-
-
+<body class="signup">
+  
 
 <div class="signupContainer">
+  {{!-- http://localhost:3000/auth/signup --}}
 <form action="/auth/signup" method="POST">
 
-<div id="login-box">
-  <div class="left">
-    <h1>Registrarme</h1>
-    
-    <input type="text" name="username" placeholder="Usuario" />
-    <input type="text" name="email" placeholder="Email" />
-    <input type="password" name="password" placeholder="Contraseña" />
-    <button type="submit">Envíar</button>
-   
-  </div>
-  
-  <div class="right">
-    <span class="loginwith">Sign in with<br />social network</span>
-    
-    <button class="social-signin facebook">Log in with facebook</button>
-    <button class="social-signin google">Log in with Google+</button>
-  </div>
-  <div class="or">OR</div>
 
-  
+
+<div class="login-page">
+  <div class="form">
+    <form class="register-form">
+      <input type="text" name="username" placeholder="Nombre"/>
+      <input type="text" name="email" placeholder="usuario@usuario.com"/>
+      <input type="password" name="password" placeholder="Contraseña" />
+      <button>Envíar</button>
+      <p class="message">Ya estás registrado? <a href="/auth/login">Ingresar</a></p>
+    </form>
+    {{#if errorMessage}}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+ {{errorMessage}} 
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{{/if}}
+    
+  </div>
 </div>
 
-{{#if errorMessage}}
+
+
+
+</body>
+
+
+{{!-- {{#if errorMessage}}
 
     {{#each errorMessage}}
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -37,7 +57,7 @@
     
     {{/each}}
 
-{{/if}}
+{{/if}} --}}
 
 
 {{!-- <label for="username">Nombre:</label>
@@ -56,8 +76,8 @@
 
 <button >Enviar</button> --}}
 
-</form>
+{{!-- </form>
 
-</div>
+</div> --}}
 
 

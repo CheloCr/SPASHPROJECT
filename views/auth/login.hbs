@@ -1,12 +1,43 @@
-<form action="/login" method="POST">
-   <label> Correo
-      <input type="text" name="email">
-   </label>
-   <label> Contraseña
-      <input type="password" name="password">
-   </label>
-   <button type="submit">Submit</button>
-</form>
+{{!-- <form action="/auth/login" method="post">
+
+  <input type="text" name="email" placeholder="user@user.com"/>
+  <input type="password" name="password" placeholder="contraseña"/>
+  <button type="password">Enviar</button>
+
 {{#if errorMessage}}
-   {{errorMessage}}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+ {{errorMessage}} 
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 {{/if}}
+
+</form> --}}
+
+
+<body class="login">
+
+<div class="loginContainer">
+  {{!-- http://localhost:3000/auth/signup --}}
+<form action="/auth/login" method="POST">
+
+<div class="login-page">
+  <div class="form">
+    <form class="register-form">
+      <input type="text" name="email" placeholder="usuario@usuario.com"/>
+      <input type="password" name="password" placeholder="Contraseña" />
+      <button>Envíar</button>
+      <p class="message"> No estás registrado? <a href="/auth/signup">Registrarme</a></p>
+    </form>
+    {{#if errorMessage}}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+ {{errorMessage}} 
+
+</div>
+{{/if}}
+    
+  </div>
+</div>
+
+
+
+</body>

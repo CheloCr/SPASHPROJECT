@@ -1,59 +1,48 @@
-//todo -------------- IMPORTAMOS LIBRERIAS --------------
-const express   = require("express")// importamos EXPRESS nos permite crear el servidor
-const hbs       = require("hbs")// importamos HBS
+//todo -------------- IMPORTACIONES DE LIBRERÍAS --------------
+const express           = require("express")// importamos EXPRESS nos permite crear el servidor
+const app               = express()
+const hbs               = require("hbs")// importamos HBS
+
+
+
+
+
 require('dotenv/config'); // importamos DOTENV
-const cookieParser = require("cookie-parser");
+require("./db/index") // importamos conexion a DB
+
+
+
+
+
 const morgan = require("morgan")
-//const passport  = require("passport")
-// const session = require("express-session")
 
 
 
-
-
-
-
-//todo -------------- INIT EXPRESS --------------
-const app = express()
-require("./db")// conectamos a BD
-// require("./passport/local-auth")
 
 
 //todo -------------- MIDDLEWARES --------------
+//----------------- SESSION MANAGER  -----------------
+require("./cofig/session.js")(app)
+//----------------- HBS  -----------------
+app.use(express.static("public")) //Public folder: configuramos que public sea estatica
+app.set("views",__dirname+"/views") // configuramos HBS
+
+app.set("view engine", "hbs") //hbs tempaltes
+hbs.registerPartials(__dirname+"/views/partials") //partials
+
+//----------------- MANEJO DE FORMULARIOS  -----------------
+app.use(express.urlencoded({ extended: true }));// nos permite aceder a los datrs del formulario
+
 app.use(morgan("dev"))
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));// nos permite aceder a los datrs del formulario
-app.use(cookieParser());
-// app.use(session ({
-//     secret: process.env.SESSION_SECRET,
-//     resave:true,
-//     saveUninitialized:false
-
-// }))
-// app.use(passport.initialize()) // inicializamos passport
-// app.use(passport.session()) // lo almacenamos en sesiones
-
-
-
-//todo -------------- SETUP --------------
-//Public folder: configuramos que public sea estatica
-app.use(express.static("public"))
-// configuramos HBS
-app.set("views",__dirname+"/views")
-//hbs tempaltes
-app.set("view engine", "hbs")
-//partials
-hbs.registerPartials(__dirname+"/views/partials")
-
-
 
 
 
 
 //todo -------------- RUTAS --------------
  app.use("/",require ("./routes/index"))
- app.use("/",require ("./routes/auth"))
- app.use("/user",require ("./routes/user"))
+ app.use("/users",require ("./routes/user"))
+ app.use("/auth",require ("./routes/auth"))
+
 
 
 
@@ -64,5 +53,5 @@ hbs.registerPartials(__dirname+"/views/partials")
 
 //todo -------------- LEVANTAMOS SERVIDOR --------------
 app.listen(process.env.PORT,()=>{
-    console.log(`ENTRANDO A :  http://localhost:${process.env.PORT}`)
+    console.log(`CORRIENDO EN EL PUERTO :  http://localhost:${process.env.PORT}`)
 })
