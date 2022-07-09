@@ -28,8 +28,9 @@ const serviceSchema = new Schema({
      },
 
 price: Number,
+_partner_services: [{type:Schema.Types.ObjectId, ref:'Partner'}],// products ofrecidos por el Partner] 
 
-     //! _id PROVEEDOR??? dEBE DEIR AQUI?  
+     
      //! confirmar quepasa si colocamos require:true 
 
 
