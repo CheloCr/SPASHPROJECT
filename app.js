@@ -38,13 +38,15 @@ app.use(morgan("dev"))
 
 
 
-//TODO----------------- RUTAS -----------------
- const partnerRoutes = require("./routes/partner.routes")
- const productRoutes = require("./routes/product.routes")
-app.use("/partner", partnerRoutes)
-app.use("/product", productRoutes)
- app.use("/",require ("./routes/auth"))
- app.use("/user",require ("./routes/user"))
+//TODO----------------- RUTAS ----------------- 
+app.use("/",require("./routes/index"))
+app.use("/auth",require ("./routes/auth"))
+
+app.use("/partner", require("./routes/partner.routes"))
+app.use("/product", require("./routes/product.routes"))
+
+app.use("/user",require ("./routes/user"))
+
 
 
 
