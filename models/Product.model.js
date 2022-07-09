@@ -9,25 +9,24 @@ const serviceSchema = new Schema({
     },
   name:String,
   service_type: {
-        enum: ["Lavanderia","Tontoreria","planchaduria"],
+        enum: ["Lavanderia","Tintoreria","Planchaduria"],
         type: String,
         default: "Lavanderia"
      },
    description: String,
-//    service_pack: {
-//         type: [{
-//             size:{
-//                 type: String,
-//                 enum:["CH","M","G","XL"],
-//                 default:"M"
-            
-//             },
-//             price:{
-//                 type: Number,
-//                 min:200
-//             }
-//         }]
-//      },
+   service_pack: {
+        type: [{
+            size:{
+                type: String,
+                enum:["3kg","5kg","7kg","10kg"],
+            },
+            price:{
+                type: Number,
+                min:200
+            }
+        }]
+     },
+
 price: Number,
 
      //! _id PROVEEDOR??? dEBE DEIR AQUI?  
@@ -41,3 +40,13 @@ price: Number,
 const Service = model("Service", serviceSchema);
 
 module.exports = Service;
+
+
+
+product:[{
+    img:String, 
+    title:String,
+    title2:String,
+    price:Number,
+    description:String,
+}]
