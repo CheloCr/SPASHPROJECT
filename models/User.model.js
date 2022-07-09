@@ -1,12 +1,20 @@
+//todo -------------- IMPORTAMOS LIBRERIAS --------------
 const { Schema, model } = require("mongoose");
+const bcrypt = require("bcryptjs")
 
-// TODO: Please make sure you edit the user model to whatever makes sense in this case
+
+
+
+
+
+
+//todo -------------- MODELO DE USUARIO --------------
 const userSchema = new Schema({
     user_photo:{
         type: String,
-        default: "SE AGREGA UNA URL PREDEFINIDA PARA QUE APAREZCA AL MOMENTO DE REGISTRO" 
+        default: "https://w0.peakpx.com/wallpaper/753/644/HD-wallpaper-perfil-cool-tecnologia-thumbnail.jpg" 
     },
-    name:{
+    username:{
         type: String, 
         require:true
     },
@@ -18,14 +26,18 @@ const userSchema = new Schema({
         type:String,
         require:true
     },
-    address:{
-        street:String,
-        number:Number,
-        zip_code:Number,
-    },
-    password:String
+    // address:{
+    //     type:String,
+    //     Number
+    //     zip_code:Number,
+    // },
+    password: {
+        type:String,
+        require:true
+    }
 });
 
-const User = model("User", userSchema);
 
-module.exports = User;
+
+
+module.exports = model("User", userSchema);
