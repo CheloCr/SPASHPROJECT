@@ -1,0 +1,31 @@
+
+
+
+
+
+
+<p> hola</p>
+   
+<div class="card" style="width: 18rem;">
+  <img src="{{this.partner_photo}}" class="card-img-top" alt="...">
+
+  <div class="card-body">
+    <p class="card-text">{{email}}</p>
+    <ul>
+      <li>{{name}}</li>
+      <li>{{phone_number}}</li>
+      <li>{{address}}</li>
+    </ul>
+    <a href="/"><button type="submit" class="btn btn-warning">Go home</button></a>
+    <a href="/users/private"><button type="submit" class="btn btn-warning">Go private</button></a>
+
+  </div>
+  {{!-- <form action="/product/dasboard/{{id}}" method="post">
+  
+    <a href="/product/dasboard/{{id}}">Ir a mis Prudcutos y pedidos</a>
+  </form> --}}
+
+
+    <a href="/product/create">Agregar Servicios</a>
+  <a href="/partner/edit/{{id}}">Editar Perfil</a>
+</div>

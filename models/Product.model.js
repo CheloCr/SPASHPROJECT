@@ -14,20 +14,22 @@ const serviceSchema = new Schema({
         default: "Lavanderia"
      },
    description: String,
-   service_pack: {
-        type: [{
-            size:{
-                type: String,
-                enum:["CH","M","G","XL"],
-                default:"M"
+//    service_pack: {
+//         type: [{
+//             size:{
+//                 type: String,
+//                 enum:["CH","M","G","XL"],
+//                 default:"M"
             
-            },
-            price:{
-                type: Number,
-                min:200
-            }
-        }]
-     },
+//             },
+//             price:{
+//                 type: Number,
+//                 min:200
+//             }
+//         }]
+//      },
+price: Number,
+
      //! _id PROVEEDOR??? dEBE DEIR AQUI?  
      //! confirmar quepasa si colocamos require:true 
 

@@ -49,9 +49,11 @@ hbs.registerPartials(__dirname+"/views/partials")
 
 
 
-
-//todo -------------- RUTAS --------------
- app.use("/",require ("./routes/index"))
+//TODO----------------- RUTAS -----------------
+ const partnerRoutes = require("./routes/partner.routes")
+ const productRoutes = require("./routes/product.routes")
+app.use("/partner", partnerRoutes)
+app.use("/product", productRoutes)
  app.use("/",require ("./routes/auth"))
  app.use("/user",require ("./routes/user"))
 
