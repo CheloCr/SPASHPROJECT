@@ -13,6 +13,7 @@ router.get("/signup", (req, res, next) => {
     res.render("partner/signup");
 })
 router.post("/signup", (req, res, next) => {
+    const {_id} = req.params
     const {role, ...restPartner } = req.body;
     const salt = bcryptjs.genSaltSync(10);
     const newPassword = bcryptjs.hashSync(restPartner.password, salt);
@@ -20,7 +21,7 @@ router.post("/signup", (req, res, next) => {
     Partner.create({...restPartner, password: newPassword})
         .then(partner => {
         
-            res.render("partner/profile",  partner );
+            res.redirect(`/partner/profile/${partner._id}`)
             console.log("partner created", partner);
         })
         .catch(err => next(err))
@@ -93,11 +94,54 @@ router.get("/profile/:id",(req,res,next)=>{
 router.get("/partners", (req, res, next) => {
     res.render("partner/partners-list");
 })
+// TODO --------------------READ--------------------
+
+//! DASHBOARD
+// router.get("/dashboard",(req,res,next)=>{
+//     res.render("product/dashboard")
+// })
+router.get("/dashboard/:id", (req, res, next) => {
+    const { id } = req.params;
+    const { role, ...Product } = req.body
+    Product.findById(id)
+        .then(product => {
+            res.render("partner/dashboard", product)
+        })
+        .catch(err => {
+            console.log("error in post/dashboard", err);
+            next()
+        })
+
+
+})
+
+router.post("/dashboard/:id", (req, res, next) => {
+const {id} = req.params;
+const {role, ...restPartner } = req.body;
+
+Partner.findById(id)
+    .then(partner => {
+        res.redirect(`/product/edit-product/${id}`)
+    })
+    .catch(error=>{
+        console.log("error in post Dashboard", error)
+        next()
+    })
+})
 
 
 // TODO --------------------LOGOUT--------------------
 
-
+// router.get("/logout", isLoggedIn, (req, res) => {
+//     req.session.destroy((err) => {
+//       if (err) {
+//         return res
+//           .status(500)
+//           .render("auth/logout", { errorMessage: err.message });
+//       }
+//       res.redirect("/");
+//     });
+//   });
 
 // TODO --------------------EDIT--------------------
 router.get("/edit/:id",(req,res,next)=>{
@@ -120,6 +164,7 @@ router.post("/edit/:id",(req,res,next)=>{
 
 
 // TODO --------------------DELETE--------------------
+//! El super User puede eliminar provedores
 router.get("/delete/:id",(req,res,next)=>{
     const {id} = req.params
     Partner.findByIdAndDelete(id)
