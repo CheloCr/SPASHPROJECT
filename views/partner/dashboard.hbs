@@ -1,0 +1,15 @@
+<h1>Dashboard</h1>
+{{>navPartners }}
+
+{{>message}}
+{{>orders }}
+
+<h1>List of products</h1>
+    {{#each product}}
+<ul>
+    <li>
+       {{service_type}} {{name}}  {{price}}
+    <a href="/product/edit/{{_id}}">Editar Servicio</a>
+    </li>
+</ul>
+    {{/each}}

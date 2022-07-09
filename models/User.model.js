@@ -3,11 +3,6 @@ const { Schema, model } = require("mongoose");
 const bcrypt = require("bcryptjs")
 
 
-
-
-
-
-
 //todo -------------- MODELO DE USUARIO --------------
 const userSchema = new Schema({
     user_photo:{
@@ -31,11 +26,6 @@ const userSchema = new Schema({
         trim: true // sin espacios vacios
 
     },
-    // address:{
-    //     type:String,
-    //     Number
-    //     zip_code:Number,
-    // },
     password: {
         type:String,
         require:true

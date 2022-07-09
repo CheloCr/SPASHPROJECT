@@ -26,6 +26,9 @@ const serviceSchema = new Schema({
             }
         }]
      },
+
+price: Number,
+
      //! _id PROVEEDOR??? dEBE DEIR AQUI?  
      //! confirmar quepasa si colocamos require:true 
 
