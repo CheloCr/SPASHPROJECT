@@ -41,11 +41,11 @@ app.use(morgan("dev"))
 //TODO----------------- RUTAS ----------------- 
 app.use("/",require("./routes/index"))
 app.use("/auth",require ("./routes/auth"))
-
+app.use("/user",require ("./routes/user"))
 app.use("/partner", require("./routes/partner.routes"))
 app.use("/product", require("./routes/product.routes"))
 
-app.use("/user",require ("./routes/user"))
+
 
 
 

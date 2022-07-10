@@ -23,11 +23,16 @@
 
 
 <div class="login-page">
-  <div class="form">
+  <div class="form" >
     <form class="register-form">
-      <input type="text" name="username" placeholder="Nombre"/>
-      <input type="text" name="email" placeholder="usuario@usuario.com"/>
-      <input type="password" name="password" placeholder="Contraseña" />
+      <label for="">Foto</label>
+      <input type="text" name="user_photo" value="{{user.user_photo}}">
+      <label for="">Nombre</label>
+      <input type="text" name="username" value="{{user.username}}"/>
+      <label for="">Email</label>
+      <input type="text" name="email" value="{{user.email}}"/>
+      <label for="">Contraseña</label>
+      <input type="password" name="password" value="{{user.password}}" />
       <button>Envíar</button>
       <p class="message">Ya estás registrado? <a href="/auth/login">Ingresar</a></p>
     </form>

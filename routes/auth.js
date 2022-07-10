@@ -23,8 +23,7 @@ router.get("/login",authController.viewLogin)
 // manejo de formulario
 router.post("/login",authController.login)
 
-// ----------------- PERFIL DE USUARIO -----------------
-router.get("/profile/:id",authController.viewProfile)
+router.get("/user/profile/:id",authController.viewProfile)
 
 
 

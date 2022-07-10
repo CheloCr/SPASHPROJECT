@@ -13,7 +13,6 @@ router.get("/signup", (req, res, next) => {
     res.render("partner/signup");
 })
 router.post("/signup", (req, res, next) => {
-    const {_id} = req.params
     const {role, ...restPartner } = req.body;
     const salt = bcryptjs.genSaltSync(10);
     const newPassword = bcryptjs.hashSync(restPartner.password, salt);

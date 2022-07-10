@@ -30,6 +30,16 @@ const userSchema = new Schema({
         type:String,
         require:true
     },
+    address:{
+        type:String,
+        require:true
+    },
+    role:{
+        type:String,
+        enum:["USER","PARTNER"],
+        default:"USER"
+       },
+      
     _acquired_product: [{type:Schema.Types.ObjectId, ref:'Service'}], // productos adquiridos]
     _acquired_services: [{type:Schema.Types.ObjectId, ref:'Partner'}],// productos adquiridos del Partner]
 
