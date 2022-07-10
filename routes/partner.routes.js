@@ -2,6 +2,9 @@ const router = require("express").Router();
 const Partner = require("../models/Partner.model");
 const bcryptjs = require("bcryptjs");
 
+const partnerauthController = require("./../controllers/PartnerauthController")
+
+
 /* 
 create
 signup : get, post{redirect}
@@ -9,9 +12,11 @@ signup : get, post{redirect}
 
 */
 // TODO --------------------SIGNUP--------------------
-router.get("/signup", (req, res, next) => {
-    res.render("partner/signup");
-})
+
+router.get("/signup",partnerauthController.viewSignup)
+
+
+
 router.post("/signup", (req, res, next) => {
     const {role, ...restPartner } = req.body;
     const salt = bcryptjs.genSaltSync(10);

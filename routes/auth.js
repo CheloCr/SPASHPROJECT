@@ -7,7 +7,7 @@ const router = require("express").Router();
 // Importamos los "Controlles" los cuales contienen toda la funcionalidad de la ruta.
 const authController = require("./../controllers/authController")
 
-// ----------------- CREACION DE USUARIO -----------------
+//todo ----------------- CREACION DE USUARIO -----------------
 
 //mostramos formulario
 // http://localhost:3000/auth/signup
@@ -22,7 +22,7 @@ router.post("/signup",authController.signup)
 
 
 
-// ----------------- INICIAR SESION -----------------
+//todo ----------------- INICIAR SESION -----------------
 //mostramos formulario
 // http://localhost:3000/auth/signup
 router.get("/login",authController.viewLogin)
@@ -30,13 +30,13 @@ router.get("/login",authController.viewLogin)
 router.post("/login",authController.login)
 
 
-// ----------------- PERFIL DE USUARIO -----------------
+//todo ----------------- PERFIL DE USUARIO -----------------
 router.get("/user/profile/:id",authController.viewProfile)
 
 
 
 
-// ----------------- CERRAR SESION -----------------
+//todo ----------------- CERRAR SESION -----------------
 router.post("/logout",authController.logout)
 
 
