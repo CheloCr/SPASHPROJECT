@@ -1,12 +1,13 @@
-<form action="/partner/login" method="POST">
-   <label> Correo
-      <input type="text" name="email">
-   </label>
-   <label> Contraseña
-      <input type="password" name="password">
-   </label>
-   <button type="submit">Submit</button>
-</form>
+<form action="/partner/login" method="post">
+   <div class="login-page">
+  <div class="form">
+    <form class="register-form">
+      <input type="text" name="email" placeholder="usuario@usuario.com"/>
+      <input type="password" name="password" placeholder="Contraseña" />
+      <button>Envíar</button>
+      <p class="message"> No estás registrado? <a href="/auth/signup">Registrarme</a></p>
+    </form>
 {{#if errorMessage}}
    {{errorMessage}}
 {{/if}}
+
