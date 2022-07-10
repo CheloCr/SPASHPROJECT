@@ -40,8 +40,10 @@ app.use(morgan("dev"))
 
 //TODO----------------- RUTAS ----------------- 
 app.use("/",require("./routes/index"))
+
 app.use("/auth",require ("./routes/auth"))//  http://localhost:3000/auth
 app.use("/user",require ("./routes/user"))
+
 
 
 app.use("/partner", require("./routes/partner.routes"))

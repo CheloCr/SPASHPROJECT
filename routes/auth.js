@@ -30,7 +30,6 @@ router.get("/login",authController.viewLogin)
 router.post("/login",authController.login)
 
 
-
 // ----------------- PERFIL DE USUARIO -----------------
 router.get("/user/profile/:id",authController.viewProfile)
 

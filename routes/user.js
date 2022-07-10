@@ -9,9 +9,11 @@ const routeGuard        = require("./../middlewares/route-guard")
 
 //todo -------------- RUTEO --------------
 
+
 // http://localhost:3000/users/profile/:id
 router.get("/profile/:id", routeGuard.loggedUser ,usersController.viewProfile)
 
+// ----------------- PERFIL DE USUARIO -----------------
 
 
 
