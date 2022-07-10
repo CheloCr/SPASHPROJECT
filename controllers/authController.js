@@ -2,70 +2,87 @@
 const bcryptjs = require("bcryptjs")
 const User = require("./../models/User.model")
 
-
+// renderiza form de sign up
 exports.viewSignup = (req,res,next) => {
     res.render("auth/signup")
 }
 
 exports.signup = (req,res,next) => {
 
-
     //1.- Obtenemos los datos del formulario
-    const {role,...restUser} = req.body
+    const {email,password,username,...resUser} = req.body
 
-    console.log("DATOS DEL USUARIO",restUser)
+    console.log("EL REQ BODYYYY",req.body)
 
 
-    //==============> VALIDACIONES
+     //==============> VALIDACIONES
     //  A) Campos vacios
-    if(!restUser.password || !restUser.password.length || !restUser.username || !restUser.username.length){
+    if(!password || !password.length || !username || !username.length){
         res.render("auth/signup", {
             errorMessage:"Por favor llena todos los campos"
         })
         return
     }
-
+    
     //  B) Fortalecimiento del Password
-    const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/
-    if(!regex.test(restUser.password)){
+    // const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/
+    // if(!regex.test(restUser.password)){
 		
-		res.render("auth/signup", {
-			errorMessage: "Tu password debe contener mínimo 6 caracteres, un número y una mayúscula."
-		})		
+	// 	res.render("auth/signup", {
+	// 		errorMessage: "Tu password debe contener mínimo 6 caracteres, un número y una mayúscula."
+	// 	})		
 
-		return
-	}
+	// 	return
+	// }
 
-    //  C) Correo
-    //la validacion de correo se hace por medio del Modelo usuario 
+    User.findOne({email})
+        //? si ya existe un email redirecciona a signup
+    .then((foundUser) => {
+        if(foundUser) {
+            res.render("auth/signup", {
+                errorMessage:"Usuario ya existente"
+            })
+            return
+        }
+        //? si no existe el usuario crear uno Nuevo con psswd Encriptado 
+         const salt = bcryptjs.genSaltSync(10)
+         const encryptedPassword = bcryptjs.hashSync(password,salt)
+         console.log("PASSENCRIPTADO",encryptedPassword)
 
-     
-
-
-    //2.- Encriptamos password
-    const salt = bcryptjs.genSaltSync(10)
-    const encryptedPassword = bcryptjs.hashSync(restUser.password,salt)
-
-    console.log("PASSENCRIPTADO",encryptedPassword)
-
-    //3.- Creamos usuario nuevo
-    const newUser = User.create({...restUser,password:encryptedPassword})
-    .then(user => {
-        //redirigimos a la lista de proveedores
-        res.render("partner/mainList") //! Esto debe de deireccionar al get/post de proveedores.
-        console.log(user)
-    })
-    .catch(error => {
-        console.log("EL ERROR ======>". error)
-        res.status(500).render("auth/signup",{
-            errorMessage:"Tu correo no es válido, por favor vuelve a ingresar los datos."
-        })
+         User.create({
+            username,
+            email
+         })
+         .then(newUser =>{
+            res.redirect("/auth/login")
+         })
     })
 
-    console.log("EL NUEVO USUARIO CREADO ====>",newUser)
 
+   
 
+    
+    // //2.- Encriptamos password
+    // const salt = bcryptjs.genSaltSync(10)
+    // const encryptedPassword = bcryptjs.hashSync(restUser.password,salt)
 
+    // console.log("PASSENCRIPTADO",encryptedPassword)
+
+    // //3.- Creamos usuario nuevo
+    // const newUser = User.create({...restUser,password:encryptedPassword})
+    // .then(user => {
+    //     //redirigimos a la lista de proveedores
+    //     res.redirect(`user/userProfile/${user._id}`) //! Esto debe de deireccionar al get/post de Dashoboard.
+    //     console.log(user)
+    // })
+    // .catch(error => {
+    //     console.log("EL ERROR ======>". error)
+    //     res.status(500).render("auth/signup",{
+    //         errorMessage:"Tu correo no es válido, por favor vuelve a ingresar los datos."
+    //     })
+    // })
+
+    // console.log("EL NUEVO USUARIO CREADO ====>",newUser)
 
     
 }
@@ -94,45 +111,36 @@ exports.login = (req,res,next) => {
     }
 
     // B)validamos que la contraseña cumpla con los parametros indicados .
-    
-    const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/
-    if(!regex.test(password)){
+    // const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/
+    // if(!regex.test(password)){
 		
-		res.render("auth/login", {
-			errorMessage: "Tu password debe contener mínimo 6 caracteres, un número y una mayúscula."
-		})		
+	// 	res.render("auth/login", {
+	// 		errorMessage: "Tu password debe contener mínimo 6 caracteres, un número y una mayúscula."
+	// 	})		
 
-		return
-	}
+	// 	return
+	// }
 
     User.findOne({email})
     .then(user => {
-        console.log("EL USUARIOOOOOOOOOOOOO",user)// si no se encuentra user es valor es igual a "null"
-        
-
-         // C) Validaciion de usuario existente en BD
+        console.log('User',user)
+         // C) Validaciion de usuario existente en BD si no lo encuentra lanza error y mensje
      if(!user){
             res.render("auth/login", {
                 errorMessage:"Email o contraseña no validos"
             })
+             return
+             // si lo encuentra compara contraseña para ver que haga match con BD
+        } 
+        // else if(bcryptjs.compareSync(password,user.password)){
+        //     res.redirect("/user/profile", {
+        //         errorMessage:"Email o contraseña no validos"
+        //     })
 
-                return
-        }
+        //         return
+        // }
 
-        if(!bcryptjs.compareSync(password,user.password)){
-            res.render("auth/login", {
-                errorMessage:"Email o contraseña no validos"
-            })
-
-                return
-        }
-        // //4. Generar Sesion (Cookie)
-        //   //Si te mueves dentro de la plataforma sigues loggeado
-          req.session.currentUser = user
-          console.log("QQQQQQQQQQQQQQQQ",req.session.currentUser)
-          
-        //5. Redireccionamos a MI PERFIL
-            res.redirect(`users/profile/${user.id}`)
+        res.redirect(`/user/profile/${user._id}`)
     })
     .catch(error => {
         console.log("EL ERROR ======>",error)
@@ -141,7 +149,7 @@ exports.login = (req,res,next) => {
         })
     })
     
-
+    
 }
 
 exports.viewProfile = (req,res,next) => {
