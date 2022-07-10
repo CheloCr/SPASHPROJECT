@@ -2,15 +2,15 @@
 const bcryptjs = require("bcryptjs")
 const User = require("./../models/User.model")
 
-
+// renderiza form de sign up
 exports.viewSignup = (req,res,next) => {
     res.render("auth/signup")
 }
 
 exports.signup = (req,res,next) => {
 
-
     //1.- Obtenemos los datos del formulario
+
     const {role, user_photo, username, email, description, password, phone_number} = req.body
 
     console.log("DATOS DEL USUARIO",{ user_photo, username, email, description, password, phone_number})
@@ -37,15 +37,6 @@ exports.signup = (req,res,next) => {
 	// }
 
 
-     
-
-
-    // //2.- Encriptamos password
-    // const salt = bcryptjs.genSaltSync(10)
-    // const encryptedPassword = bcryptjs.hashSync(restUser.password,salt)
-
-    // console.log("PASSENCRIPTADO",encryptedPassword)
-
     //3.- Creamos usuario nuevo
     const salt = bcryptjs.genSaltSync(10);
     const newPassword = bcryptjs.hashSync(password, salt);
@@ -63,12 +54,6 @@ exports.signup = (req,res,next) => {
             errorMessage:"Tu correo no es válido, por favor vuelve a ingresar los datos."
         })
     })
-
-    
-
-
-
-
     
 }
 
@@ -95,8 +80,8 @@ exports.login = (req,res,next) => {
     //     return
     // }
 
-    // // B)validamos que la contraseña cumpla con los parametros indicados .
-    
+    // B)validamos que la contraseña cumpla con los parametros indicados .
+
     // const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/
     // if(!regex.test(password)){
 		
@@ -107,30 +92,11 @@ exports.login = (req,res,next) => {
 	// 	return
 	// }
 
-    // User.findOne({email})
-    // .then(user => {
-    //     console.log("EL USUARIOOOOOOOOOOOOO",user)// si no se encuentra user es valor es igual a "null"
-        
 
-    //      // C) Validaciion de usuario existente en BD
-    //  if(!user){
-    //         res.render("auth/login", {
-    //             errorMessage:"Email o contraseña no validos"
-    //         })
-
-    //             return
-    //     }
-
-    //     if(!bcryptjs.compareSync(password,user.password)){
-    //         res.render("auth/login", {
-    //             errorMessage:"Email o contraseña no validos"
-    //         })
-
-    //             return
-    //     }
     const {id} = req.params
     User.findOne({email})
     .then(user => {
+
         console.log("EL USUARIOOOOOOOOOOOOO",user)// si no se encuentra user es valor es igual a "null"
         
         //5. Redireccionamos a MI PERFIL
@@ -146,7 +112,7 @@ exports.login = (req,res,next) => {
         })
     })
     
-
+    
 }
 
 exports.viewProfile = (req,res) => {
