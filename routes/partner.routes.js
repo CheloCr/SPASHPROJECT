@@ -3,7 +3,6 @@ const Partner = require("../models/Partner.model");
 const bcryptjs = require("bcryptjs");
 const partnersAuthController = require("./../controllers/partnersAuthController")
 
-const partnerauthController = require("./../controllers/PartnerauthController")
 
 
 /* 

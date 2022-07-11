@@ -7,17 +7,23 @@ const router = require("express").Router();
 // Importamos los "Controlles" los cuales contienen toda la funcionalidad de la ruta.
 const authController = require("./../controllers/authController")
 
+
+// Importamos las sesiones
+const isLoggedOut = require("./../middlewares/isLoggedOut");
+const isLoggedIn = require("./../middlewares/isLoggedin");
+
+
 //todo ----------------- CREACION DE USUARIO -----------------
 
 //mostramos formulario
 // http://localhost:3000/auth/signup
-router.get("/signup",authController.viewSignup)
+router.get("/signup",isLoggedOut,authController.viewSignup)
 
 
 
 // manejo de formulario
 // recibe de: http://localhost:3000/auth/signup -------> GET/POST LIGIN
-router.post("/signup",authController.signup)
+router.post("/signup",isLoggedOut,authController.signup)
 
 
 
@@ -36,8 +42,9 @@ router.get("/user/profile/:id",authController.viewProfile)
 
 
 
+
 //todo ----------------- CERRAR SESION -----------------
-router.post("/logout",authController.logout)
+// router.post("/logout",isLoggedIn,authController.logout)
 
 
 module.exports = router

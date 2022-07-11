@@ -2,13 +2,15 @@
 const express           = require("express")// importamos EXPRESS nos permite crear el servidor
 const app               = express()
 const hbs               = require("hbs")// importamos HBS
-
-
+const session           = require("express-session");
 
 
 
 require('dotenv/config'); // importamos DOTENV
 require("./db/index") // importamos conexion a DB
+
+
+
 
 
 
@@ -22,7 +24,7 @@ const morgan = require("morgan")
 
 //todo -------------- MIDDLEWARES --------------
 //----------------- SESSION MANAGER  -----------------
-require("./cofig/session.js")(app)
+require("./config/session.js")(app)
 //----------------- HBS  -----------------
 app.use(express.static("public")) //Public folder: configuramos que public sea estatica
 app.set("views",__dirname+"/views") // configuramos HBS
@@ -43,7 +45,6 @@ app.use("/",require("./routes/index"))
 
 app.use("/auth",require ("./routes/auth"))//  http://localhost:3000/auth
 app.use("/user",require ("./routes/user"))
-
 
 
 app.use("/partner", require("./routes/partner.routes"))

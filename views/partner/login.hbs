@@ -1,13 +1,14 @@
 <form action="/partner/login" method="post">
- <div class="login-page">
-  <div class="form">
-    <form class="register-form">
-      <input type="text" name="email" placeholder="usuario@usuario.com"/>
-      <input type="password" name="password" placeholder="Contraseña" />
-      <button>Envíar</button>
-      <p class="message"> No estás registrado? <a href="/auth/signup">Registrarme</a></p>
-    </form>
+         <div class="login-page">
+         <div class="form">
+         <form class="register-form">
+         <input type="text" name="email" placeholder="usuario@usuario.com"/>
+         <input type="password" name="password" placeholder="Contraseña" />
+         <button>Envíar</button>
+         <p class="message"> No estás registrado? <a href="/auth/signup">Registrarme</a></p>
+      </form>
 </form>
+
 {{#if errorMessage}}
    {{errorMessage}}
 {{/if}}

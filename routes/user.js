@@ -5,18 +5,22 @@ const router            = require("express").Router();
 // Importamos los "Controlles" los cuales contienen toda la funcionalidad de la ruta.
 const usersController   = require("./../controllers/usersController")
 
-const routeGuard        = require("./../middlewares/route-guard")        
 
-//todo -------------- RUTEO --------------
+// Importamos las sesiones
+const isLoggedOut = require("./../middlewares/isLoggedOut");
+const isLoggedIn = require("./../middlewares/isLoggedin");       
 
+
+// TODO --------------------PROFILE--------------------
 
 // http://localhost:3000/users/profile/:id
-router.get("/profile/:id", routeGuard.loggedUser ,usersController.viewProfile)
-
-// ----------------- PERFIL DE USUARIO -----------------
+router.get("/profile/:id", isLoggedIn ,usersController.viewProfile)
 
 
 
+// TODO --------------------EDIT--------------------
+router.get = ("/edit/:id", usersController.viewEditProfile)
+router.post = ("/edit/:id", usersController.postEditProfile)
 
 
 

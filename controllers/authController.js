@@ -67,6 +67,7 @@ exports.login = (req,res,next) => {
     const {username,email,password} = req.body
 
     console.log("EN EL LOGIN",req.body)
+    console.log('SESSION =====> ', req.session);
     
     //==============> VALIDACIONES
 
@@ -99,6 +100,8 @@ exports.login = (req,res,next) => {
 
         console.log("EL USUARIOOOOOOOOOOOOO",user)// si no se encuentra user es valor es igual a "null"
         
+        req.session.currentUser = user
+
         //5. Redireccionamos a MI PERFIL
             res.redirect(`user/profile/${user.id}`)
     })
@@ -120,16 +123,17 @@ exports.viewProfile = (req,res) => {
     const {id} = req.params
     User.findById(id)
     .then(user => {
-        res.render("user/profile",user)
+        res.render("user/profile",{ userInSession: req.session.currentUser })
     }).catch(error => {
         console.log("error in post Dashboard", error)
     }    )
 }
 
+
 exports.logout = (req,res,next) => {
     //! NO BORRA SESION DE MONGO
     req.session.destroy((error)=>{
-
+        console.log(req.session)
         if(error){
             console.log(error)
             return
