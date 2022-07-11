@@ -31,20 +31,20 @@ router.post("/signup",isLoggedOut,authController.signup)
 //todo ----------------- INICIAR SESION -----------------
 //mostramos formulario
 // http://localhost:3000/auth/signup
-router.get("/login",authController.viewLogin)
+router.get("/login",isLoggedOut,authController.viewLogin)
 // manejo de formulario
-router.post("/login",authController.login)
+router.post("/login",isLoggedOut,authController.login)
 
 
 //todo ----------------- PERFIL DE USUARIO -----------------
-router.get("/user/profile/:id",authController.viewProfile)
+router.get("/user/profile/:id",isLoggedIn,authController.viewProfile)
 
 
 
 
 
 //todo ----------------- CERRAR SESION -----------------
-// router.post("/logout",isLoggedIn,authController.logout)
+router.post("/logout",isLoggedOut,authController.logout)
 
 
 module.exports = router

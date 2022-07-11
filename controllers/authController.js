@@ -58,7 +58,6 @@ exports.signup = (req,res,next) => {
 }
 
 exports.viewLogin =(req,res,next) => {
-    console.log("SESSION====?",req.session)
     res.render("auth/login")
 }
 
@@ -123,7 +122,7 @@ exports.viewProfile = (req,res) => {
     const {id} = req.params
     User.findById(id)
     .then(user => {
-        res.render("user/profile",{ userInSession: req.session.currentUser })
+        res.render("user/profile",{ user: req.session.currentUser })
     }).catch(error => {
         console.log("error in post Dashboard", error)
     }    )

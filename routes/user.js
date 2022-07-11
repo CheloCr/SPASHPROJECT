@@ -19,8 +19,8 @@ router.get("/profile/:id", isLoggedIn ,usersController.viewProfile)
 
 
 // TODO --------------------EDIT--------------------
-router.get = ("/edit/:id", usersController.viewEditProfile)
-router.post = ("/edit/:id", usersController.postEditProfile)
+// router.get = ("/edit/:id", usersController.viewEditProfile)
+// router.post = ("/edit/:id", usersController.postEditProfile)
 
 
 
