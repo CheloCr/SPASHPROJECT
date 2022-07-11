@@ -3,6 +3,8 @@ const Partner = require("../models/Partner.model");
 const bcryptjs = require("bcryptjs");
 const partnersAuthController = require("./../controllers/partnersAuthController")
 
+
+
 /* 
 create
 signup : get, post{redirect}
@@ -10,7 +12,9 @@ signup : get, post{redirect}
 
 */
 // TODO --------------------SIGNUP--------------------
+
 router.get("/signup",partnersAuthController.viewSignup)
+
 
 router.post("/signup", partnersAuthController.signup)
 

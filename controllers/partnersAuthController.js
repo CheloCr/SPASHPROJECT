@@ -119,6 +119,10 @@ Partner.findById(id)
 
 //----------fin del Log Out
 
+
+
+// TODO --------------------EDIT--------------------
+
 exports.viewEditProfile = (req,res,next) => {
     res.render("partner/edit-profile")
 }
