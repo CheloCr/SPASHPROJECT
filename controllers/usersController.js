@@ -9,7 +9,6 @@ exports.viewProfile = (req,res) => {
     }    )
 }
 
-
 exports.viewEditProfile = (req,res,next) => {
     res.render("user/edit-user")
 }

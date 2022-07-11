@@ -100,10 +100,10 @@ exports.login = (req,res,next) => {
 
         console.log("EL USUARIOOOOOOOOOOOOO",user)// si no se encuentra user es valor es igual a "null"
         
-        req.session.currentUser = user
+        req.session.currentUser= user
 
         //5. Redireccionamos a MI PERFIL
-            res.redirect(`user/profile/${user.id}`)
+            res.redirect(`user/profile/${id}`)
     })
     .catch(error => {
         console.log("error in post de login", error)
@@ -123,7 +123,8 @@ exports.viewProfile = (req,res) => {
     const {id} = req.params
     User.findById(id)
     .then(user => {
-        res.render("user/profile",{ userInSession: req.session.currentUser })
+        // res.render("user/profile",{ userInSession: req.session.currentUser })
+        res.render("user/profile", user)
     }).catch(error => {
         console.log("error in post Dashboard", error)
     }    )
