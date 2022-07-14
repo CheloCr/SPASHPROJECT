@@ -43,8 +43,9 @@ exports.signup = (req,res,next) => {
 
     User.create({user_photo, username, description, phone_number, email, password: newPassword})
         .then(user => {
-        
-            res.redirect("/auth/login")
+            req.session.currentUser = user;
+            res.redirect(`user/profile/${user.id}`)
+            //!res.redirect("/auth/login") pruebas para el sessions
             console.log("user created", user)
         })
         .catch(err => next(err))
@@ -96,13 +97,12 @@ exports.login = (req,res,next) => {
     const {id} = req.params
     User.findOne({email})
     .then(user => {
-
+        req.session.currentUser = user
+        console.log("SESSION =====> ", req.session);
         console.log("EL USUARIOOOOOOOOOOOOO",user)// si no se encuentra user es valor es igual a "null"
         
-        req.session.currentUser = user
-
         //5. Redireccionamos a MI PERFIL
-            res.redirect(`user/profile/${user.id}`)
+        res.redirect(`user/profile/${user.id}`)
     })
     .catch(error => {
         console.log("error in post de login", error)
@@ -119,13 +119,13 @@ exports.login = (req,res,next) => {
 
 exports.viewProfile = (req,res) => {
 
-    const {id} = req.params
-    User.findById(id)
-    .then(user => {
+    // const {id} = req.params
+    // User.findById(id)
+    // .then(user => {
         res.render("user/profile",{ user: req.session.currentUser })
-    }).catch(error => {
-        console.log("error in post Dashboard", error)
-    }    )
+    // }).catch(error => {
+    //     console.log("error in post Dashboard", error)
+    // }    )
 }
 
 

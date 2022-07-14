@@ -39,8 +39,10 @@ const path              = require("path");
                     resave:false,
                     saveUninitialized:false, // no inserta la cookie como visitante sino hasta que se inicia sesion
                         cookie: { //Archivo con datos del usuario
+                            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+                            secure: process.env.NODE_ENV === 'production',
                             httpOnly: true, // Fevita ataques XSS
-
+                            
                         },
                             store: MongoStore.create({
                                 mongoUrl:MONGODB_URI,
